@@ -1,0 +1,10 @@
+1,Python,90
+1,Java,95
+2,Python,85
+2,Java,88
+3,Python,92
+3,Java,75
+4,Python,80
+4,Java,85
+5,Python,90
+5,Java,95

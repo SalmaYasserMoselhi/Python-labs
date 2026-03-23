@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Students</title>
+  <style>
+    body { 
+        font-family: arial, sans-serif; 
+        margin: 0; 
+    }
+    .navbar { 
+        background-color: #333; 
+        overflow: hidden; 
+    }
+    .navbar a { 
+        float: left; 
+        color: white; 
+        text-align: center; 
+        padding: 14px 20px; 
+        text-decoration: none; 
+    }
+    .navbar a:hover { 
+        background-color: #ddd; 
+        color: black; 
+    }
+    .content { 
+        padding: 20px; 
+    }
+    table { 
+        font-family: arial, sans-serif; 
+        border-collapse: collapse; 
+        width: 100%; 
+    }
+    td, th { 
+        border: 1px solid #dddddd; 
+        text-align: left; 
+        padding: 8px; 
+    }
+    tr:nth-child(even) { 
+        background-color: #dddddd; 
+    }
+    img { 
+        width: 80px; 
+        height: 80px; 
+    }
+  </style>
+  </head>
+  <body>
+
+  <div class="navbar">
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'students' %}">Student</a>
+      <a href="{% url 'contact' %}">Contact Us</a>
+  </div>
+
+  <div class="content">
+  <div>
+      {% if msg %}
+      <p>
+          {{ msg }}
+      </p>
+      {% endif %}
+  </div>
+  <h2>Add Student</h2>
+  <form action="#" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" name="name"><br>
+      <label for="age">Age:</label><br>
+      <input type="text" id="age" name="age"><br>
+      <label for="email">Email:</label><br>
+      <input type="text" id="email" name="email"><br>
+      <label for="image">Image:</label><br>
+      <input type="file" id="image" name="image"><br><br>
+      <input type="submit" value="Submit">
+  </form>
+
+  <h2>Students Table</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Email</th>
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+  {% for student in students %}
+    <tr>
+      <td>{{ student.name }}</td>
+      <td>{{ student.age }}</td>
+      <td>{{ student.email }}</td>
+      <td>
+          {% if student.image %}
+              <img src="{{ student.image.url }}" alt="{{ student.name }}">
+          {% endif %}
+      </td>
+      <td>
+          <a href="{% url 'student_delete' student.id %}">Delete</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+  </div>
+
+  </body>
+</html>
